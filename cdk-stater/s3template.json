@@ -1,0 +1,11 @@
+{
+    "Resources": {
+        "MyHelloBucket": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+                "AccessControl": "PublicRead",
+                "BucketName": "my-hello-bucket"
+            }
+        }
+    }
+}
