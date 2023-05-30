@@ -1,11 +1,17 @@
 {
-    "Resources": {
-        "MyHelloBucket": {
-            "Type": "AWS::S3::Bucket",
-            "Properties": {
-                "AccessControl": "PublicRead",
-                "BucketName": "my-hello-bucket"
+  "Resources": {
+    "HelloBucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "LifecycleConfiguration": {
+          "Rules": [
+            {
+              "ExpirationInDays": 3,
+              "Status": "Enabled"
             }
+          ]
         }
+      }
     }
+  }
 }

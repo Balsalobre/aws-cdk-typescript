@@ -55,6 +55,44 @@ Para comprobar que tenemos el usuario bien configurado podemos ejecutar el coman
 
 Es el servicio con el que se trabajará como base en todo el curso, dado que CDK no es más que una abstracción por encima de CloudFormation. 
 
-CloudFormation es un servicio de infraestructura como código que provee aws que organiza diferentes recursos de aws relacionados en stacks.
+CloudFormation es un servicio de infraestructura como código que provee aws que organiza diferentes recursos de aws relacionados en stacks (pilas).
 
-Tendremos el código escrito en cdk que transformaremos a una plantilla de CloudFormation mediante una función de synthesize
+![CDK to AWS CloudFormation](assets/CDKAWSCloudFormation.png)
+
+CDK to AWS CloudFormation
+
+Tendremos el código escrito en cdk que transformaremos a una plantilla de CloudFormation mediante una función de synthesize.
+
+Vamos a subir una plantilla de ejemplo para crear nuestro primer stack:
+
+![Primer simple stack](assets/createStack.png)
+
+Primer simple stack
+
+```json
+{
+  "Resources": {
+    "HelloBucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "LifecycleConfiguration": {
+          "Rules": [
+            {
+              "ExpirationInDays": 3,
+              "Status": "Enabled"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+Nombramos tras esto el nombre de nuestro stack **MiFirstTestStack** y esperamos a que se creen los recusos en este caso un bucket de s3
+
+![Creación de un bucket de s3 con CloudFormation subida de fichero](assets/helloBucket.png)
+
+Creación de un bucket de s3 con CloudFormation subida de fichero
+
+Si intentamos ahora borrar el stack no vamos a poder hacerlo porque para poderlo hacer tenemos que vaciar primero el bucket, es mucho más sencillo en aws crear que borrar. Si eliminamos el bucket como tal ya deberíamos poder borrar el stack.
