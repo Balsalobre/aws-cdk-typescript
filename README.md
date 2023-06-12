@@ -2,11 +2,13 @@
 
 Infraestructura como código con aws cdk v2 + Typescript &amp; Jest (CloudFormation - Cognito - Lambda - Amplify)
 
+## Anotaciones
+
+Apuntes completos del curso en Notion: [AWS-CDK-Typescript](https://www.notion.so/AWS-CDK-Typescript-34d52e2deb4e407fb30fe575f8922dea)
+
 # Creación de usuario de aws para CLI
 
 Usaremos el servicio IAM con el que podremos crear un usuario de AWS que tenga permisos adecuados para utilizar la CLI.
-
-![Acceso a agregar usuario](assets/addUser.png)
 
 Acceso a agregar usuario
 
@@ -24,7 +26,6 @@ aws-cli/2.11.23 Python/3.11.3 Linux/5.15.0-56-generic exe/x86_64.linuxmint.21 pr
 Una vez instalada la consola, iremos a **Credenciales de seguridad** > **Claves de acceso
 [x] Interfaz de línea de comandos (CLI)**
 
-![Credenciales de seguridad](assets/credentials.png)
 
 Credenciales de seguridad
 
@@ -35,7 +36,7 @@ Una vez tengamos esta clave creada podemos ir a teminal para concluir con el pro
 ```bash
 ❯ aws configure
 AWS Access Key ID [None]: AKKDUBALSDKFIYHUSDNFF
-AWS Secret Access Key [None]: 8ijleiifa09ssadkflnmncdu79oksdfjpsii
+AWS Secret Access Key [None]: 8ijleiifa09ssadjircial79oksdfjpsii
 Default region name [None]: eu-west-1
 Default output format [None]: json
 ```
@@ -44,9 +45,6 @@ Para comprobar que tenemos el usuario bien configurado podemos ejecutar el coman
 
 ```bash
 ❯ aws s3 ls
-2022-09-25 12:58:22 balslobre-nodejs-aws-s3
-2023-02-13 22:49:30 cdk-hnb659fds-assets-030948992192-us-east-1
-2023-02-18 23:44:12 mongodb-lambda-dev-serverlessdeploymentbucket-1xbtcie3ybgco
 ```
 
 # AWS CDK & CloudFormation
@@ -90,8 +88,6 @@ Primer simple stack
 ```
 
 Nombramos tras esto el nombre de nuestro stack **MiFirstTestStack** y esperamos a que se creen los recusos en este caso un bucket de s3
-
-![Creación de un bucket de s3 con CloudFormation subida de fichero](assets/helloBucket.png)
 
 Creación de un bucket de s3 con CloudFormation subida de fichero
 
