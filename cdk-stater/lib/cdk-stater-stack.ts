@@ -1,4 +1,4 @@
-import { Stack, StackProps, Duration } from 'aws-cdk-lib';
+import { Stack, StackProps, Duration, CfnOutput } from 'aws-cdk-lib';
 import { Bucket, CfnBucket } from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
 
@@ -33,12 +33,16 @@ export class CdkStaterStack extends Stack {
     });
 
     // 2. Using a Bucket construct
-    new Bucket(this, 'MyL2Bucket', {
+    const myL2Bucket = new Bucket(this, 'MyL2Bucket', {
       lifecycleRules: [{
         expiration: Duration.days(2)
       }]
     });
 
+    new CfnOutput(this, 'MyL2BucketName', {
+      value: myL2Bucket.bucketName
+    });
+    
     // 3. Using a Bucket construct with a custom resource
     new L3Bucket(this, 'MyL3Bucket', 3);
   }
