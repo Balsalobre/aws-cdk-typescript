@@ -1,4 +1,4 @@
-import { Stack, StackProps, Duration, CfnOutput } from 'aws-cdk-lib';
+import { Stack, StackProps, Duration, CfnOutput, CfnParameter } from 'aws-cdk-lib';
 import { Bucket, CfnBucket } from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
 
@@ -32,10 +32,17 @@ export class CdkStaterStack extends Stack {
       }
     });
 
+    const duration = new CfnParameter(this, 'duration', {
+      default: 6,
+      minValue: 1,
+      maxValue: 10,
+      type: 'Number',
+    })
+
     // 2. Using a Bucket construct
     const myL2Bucket = new Bucket(this, 'MyL2Bucket', {
       lifecycleRules: [{
-        expiration: Duration.days(2)
+        expiration: Duration.days(duration.valueAsNumber)
       }]
     });
 
