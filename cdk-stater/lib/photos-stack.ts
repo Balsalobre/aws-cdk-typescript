@@ -1,5 +1,5 @@
-import { Fn, Stack, StackProps } from "aws-cdk-lib";
-import { Bucket, CfnBucket } from "aws-cdk-lib/aws-s3";
+import { CfnOutput, Fn, Stack, StackProps } from "aws-cdk-lib";
+import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 
 export class PhotosStack extends Stack {
@@ -11,8 +11,13 @@ export class PhotosStack extends Stack {
 
         this.initializeStackSuffix();
 
-        new Bucket(this, 'PhotosBucket2', {
+        const photosBucket = new Bucket(this, 'PhotosBucket2', {
             bucketName: `photos-bucket-${this.stackSuffix}` // Phisical ID of the bucket
+        });
+
+        new CfnOutput(this, 'photos-bucket', {
+            value: photosBucket.bucketArn, // Most common way to reference a resource in CDK
+            exportName: 'photos-bucket'
         });
 
         // We do this to override the logical ID of the bucket in the CloudFormation template
