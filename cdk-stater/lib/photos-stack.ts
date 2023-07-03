@@ -1,5 +1,6 @@
 import { CfnOutput, Fn, Stack, StackProps } from "aws-cdk-lib";
 import { Bucket } from "aws-cdk-lib/aws-s3";
+import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import { Construct } from "constructs";
 
 export class PhotosStack extends Stack {
@@ -10,6 +11,7 @@ export class PhotosStack extends Stack {
         super(scope, id, props);
 
         this.initializeStackSuffix();
+        this.createSecret();
 
         const photosBucket = new Bucket(this, 'PhotosBucket2', {
             bucketName: `photos-bucket-${this.stackSuffix}` // Phisical ID of the bucket
@@ -29,5 +31,18 @@ export class PhotosStack extends Stack {
     private initializeStackSuffix() {
         const shortStackId = Fn.select(2, Fn.split('/', this.stackId));
         this.stackSuffix = Fn.select(4, Fn.split('-', shortStackId));
+    }
+
+    private createSecret() {
+        new Secret(this, 'MySecret', {
+            secretName: 'my-secret',
+            generateSecretString: {
+                secretStringTemplate: JSON.stringify({ username: 'admin' }),
+                generateStringKey: 'password',
+                excludePunctuation: true,
+                includeSpace: false,
+                passwordLength: 10
+            }
+        });
     }
 }
